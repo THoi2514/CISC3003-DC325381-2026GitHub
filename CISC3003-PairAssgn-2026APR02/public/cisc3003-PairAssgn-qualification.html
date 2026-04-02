@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang='zxx'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas & Cristian - Qualification</title>
+    <link rel="stylesheet" href="css/cisc3003-PairAssgn-qualification.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="handsome-header">
+		<div class="wrapper">
+			<header>
+		    <div class="logo-group"> 
+		    	<div class="logo-1">
+		            <i class="fa-solid fa">HTC</i>
+		        </div>
+		        <div class="logo-2">
+		            Web Studio
+		        </div>
+		    </div>
+				<nav>
+					<div class="togglebtn">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+					<ul class="navpages">
+						<li><a href="cisc3003-PairAssgn-home.html">Home</a></li>
+						<li><a href="cisc3003-PairAssgn-profile.html">Profile</a></li>
+						<li><a href="cisc3003-PairAssgn-summary.html">Summary</a></li>
+						<li><a href="cisc3003-PairAssgn-showcase.html">Showcase</a></li>
+						<li><a href="cisc3003-PairAssgn-qualification.html">Qualification</a></li>
+					</ul>
+                </nav>
+            </header>
+            
+			<section id="nav" class="page-section">
+				<ul class="navlinks">
+				    <li><a href="#history">Our History</a></li>
+				    <li><a href="#work">Work Experience</a></li>
+				    <li><a href="#awards">Our Awards</a></li>
+				    <li><a href="#cv">Our Services</a></li>
+				</ul>
+			</section>
+			
+          	<div class="container">
+				<div class="handsome-pic">
+					<img src="images/Thomas/photo_2.jpg" alt="profile pic">
+				</div>
+				<br>
+				<div class="handsome-pic">
+					<img src="images/Cristian/face.jpg" alt="profile pic">
+			    </div>
+                
+                <div class="profile-text">
+                    <section class="section-block" id="history">
+                        <h2>Our History</h2>
+                        <ul>
+                            <li><strong>Founding Roots:</strong> Our studio was born out of a collaborative university project in CISC3003.</li>
+                            <li><strong>Growth:</strong> What started as an academic partnership quickly evolved into a professional agency as we realized our complementary skills in frontend design and backend logic.</li>
+                            <li><strong>Academic Background:</strong> Both partners are pursuing a Bachelor of Science in Computer Science at the University of Macau.</li>
+                        </ul>
+                    </section>
+
+                    <section class="section-block" id="work">
+                        <h2>Our Work Experience</h2>
+                        <ul>
+                            <li><strong>Founders & Lead Developers | Our Studio (Present):</strong> Spearheading web development projects, managing client relations, and overseeing the entire web design lifecycle from concept to deployment.</li>
+                            <li><strong>Freelance Web Designers (Past Year):</strong> Designed landing pages and optimized website performance for local businesses and student organizations.</li>
+                            <li><strong>STEM Instructors:</strong> Teaching programming foundations (Python, Scratch) to younger audiences at local tech labs.</li>
+                        </ul>
+                    </section>
+
+                    <section class="section-block" id="awards">
+                        <h2>Our Awards</h2>
+                        <ul>
+                            <li><strong>Excellence in Web Design:</strong> Awarded for the "Easy Bank" project in the CISC3003 Web Design Showcase.</li>
+                            <li><strong>Top Peer Review:</strong> Recognized for the best UI/UX implementation in the Website Layout Series assignments.</li>
+                        </ul>
+                    </section>
+                    
+                    <section class="section-block" id="cv">
+                        <h2>Our Services</h2>
+                        <ul>
+                            <li><strong>Frontend Development:</strong> Crafting beautiful, semantic, and accessible user interfaces.</li>
+                            <li><strong>Responsive Layout Design:</strong> Ensuring your site looks perfect on mobile, tablet, and desktop using CSS Grid and Flexbox.</li>
+                            <li><strong>Interactive Scripting:</strong> Bringing static pages to life with dynamic DOM manipulation and JavaScript.</li>
+                        </ul>
+                        </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<footer>
+		CISC3003 Web Programming - 2026: 
+		<br>DC325381 Hoi Kai Cheng
+		<br>DC325107 Ho Weng Hong
+	</footer>
+
+    <script>
+        const toggleBtn = document.querySelector('.togglebtn');
+        const navLinks = document.querySelector('.navpages');
+
+        toggleBtn.addEventListener('click', () => {
+            toggleBtn.classList.toggle('click');
+            navLinks.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

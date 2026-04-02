@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang='zxx'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas & Cristian - Summary</title>
+    <link rel="stylesheet" href="css/cisc3003-PairAssgn-summary.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="handsome-header">
+		<div class="wrapper">
+			<header>
+		    <div class="logo-group"> 
+		    	<div class="logo-1">
+		            <i class="fa-solid fa">HTC</i>
+		        </div>
+		        <div class="logo-2">
+		            Web Studio
+		        </div>
+		    </div>
+				<nav>
+					<div class="togglebtn">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+ 					<ul class="navpages">
+						<li><a href="cisc3003-PairAssgn-home.html">Home</a></li>
+						<li><a href="cisc3003-PairAssgn-profile.html">Profile</a></li>
+						<li><a href="cisc3003-PairAssgn-summary.html">Summary</a></li>
+						<li><a href="cisc3003-PairAssgn-showcase.html">Showcase</a></li>
+						<li><a href="cisc3003-PairAssgn-qualification.html">Qualification</a></li>
+					</ul>
+                </nav>
+            </header>
+
+			<section id="nav" class="page-section">
+				<ul class="navlinks">
+				    <li><a href="#outcomes">Our Business Goals</a></li>
+				    <li><a href="#planning">Professional Commitments</a></li>
+				    <li><a href="#reflection">Future Directions</a></li>
+				</ul>
+			</section>
+			
+          	<div class="container">
+				<div class="handsome-pic">
+					<img src="images/Thomas/photo_2.jpg" alt="profile pic">
+				</div>
+				<br>
+				<div class="handsome-pic">
+					<img src="images/Cristian/face.jpg" alt="profile pic">
+			</div>
+
+                <div class="profile-text">
+                    <section class="section-block" id="outcomes">
+                        <h2>Our Business Goals</h2>
+                        <ul>
+                            <li>Deliver high-quality, fully responsive multi-page websites that drive user engagement.</li>
+                            <li>Maintain a 100% client satisfaction rate by prioritizing custom, tailored solutions.</li>
+                            <li>Establish a strong digital footprint across the tech and finance sectors.</li>
+                        </ul>
+                    </section>
+
+                    <section class="section-block" id="planning">
+                        <h2>Our Professional Commitments</h2>
+                        <p>We are committed to delivering code that is clean, semantic, and compliant with modern web accessibility standards (WCAG). We promise timely project delivery, regular milestone updates, and thorough post-launch support to ensure your website operates seamlessly.</p>
+                    </section>
+
+                    <section class="section-block" id="reflection">
+                        <h2>Our Future Directions</h2>
+                        <p>As we look to the future, we plan to integrate advanced JavaScript libraries into our standard workflow.</p>
+                        <p>We aim to explore WebGL for immersive 3D web experiences and animations.</p>
+                        <p>Finally, we will expand our service catalog to include the development of Progressive Web Apps (PWAs).</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<footer>
+		CISC3003 Web Programming - 2026: 
+		<br>DC325381 Hoi Kai Cheng
+		<br>DC325107 Ho Weng Hong
+	</footer>
+
+    <script>
+        const toggleBtn = document.querySelector('.togglebtn');
+        const navLinks = document.querySelector('.navpages');
+
+        toggleBtn.addEventListener('click', () => {
+            toggleBtn.classList.toggle('click');
+            navLinks.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

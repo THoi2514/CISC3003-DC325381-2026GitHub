@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang='zxx'>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Thomas & Cristian - Home</title>
+	<link rel="stylesheet" href="css/cisc3003-PairAssgn-home.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="handsome-header" id="home">
+		<div class="wrapper">
+		<header>
+	    <div class="logo-group"> 
+	    	<div class="logo-1">
+	            <i class="fa-solid fa">HTC</i>
+	        </div>
+	        <div class="logo-2">
+	            Web Studio
+	        </div>
+	    </div>
+				<nav>
+					<div class="togglebtn">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+					<ul class="navpages">
+						<li><a href="cisc3003-PairAssgn-home.html">Home</a></li>
+						<li><a href="cisc3003-PairAssgn-profile.html">Profile</a></li>
+						<li><a href="cisc3003-PairAssgn-summary.html">Summary</a></li>
+						<li><a href="cisc3003-PairAssgn-showcase.html">Showcase</a></li>
+						<li><a href="cisc3003-PairAssgn-qualification.html">Qualification</a></li>
+					</ul>
+				</nav>
+		</header>	
+		
+		<section id="nav" class="page-section">
+			<ul class="navlinks">
+			    <li><a href="#welcome">Welcome</a></li>
+			    <li><a href="#picture">Our team</a></li>
+			    <li><a href="#about-us">About Us</a></li>
+			</ul>
+		</section>
+		
+		<section id="welcome" class="page-section">
+			<h1 class="section-title">Welcome to
+			<div class="logo-1"><i class="fa-solid fa">HTC</i></div> <div class="logo-2">Web Studio</div>
+			</h1>
+			<div class="section-container">
+				<div class="text-container" style="width: 100%; text-align: center;">
+					<p>We are a forward-thinking digital design and web development agency committed to crafting stunning, responsive, and user-centric web experiences. Whether you need a corporate presence or a dynamic web application, we bring your digital vision to life.</p>
+				</div>
+			</div>
+		</section>
+		
+		<section id="picture">
+			<div class="container">
+				<div class="handsome-pic">
+					<img src="images/Thomas/photo_2.jpg" alt="profile pic">
+				</div>
+				<div class="profile-text">
+				    <h5>Lead Frontend Developer & UI/UX Specialist</h5>
+				    <h1>Hoi Kai Cheng<br>Thomas</h1>
+				    <p>With a keen eye for aesthetics and a deep understanding of user behavior, I ensure that every interface is intuitive, accessible, and visually striking.</p>
+				    <a href="Member01-portfolio-site/cisc3003-Member01-home.html" target="_blank" class="portfolio-btn">My Portfolio</a>
+				</div>
+			</div>
+			
+			<div class="container">
+				<div class="handsome-pic">
+					<img src="images/Cristian/face.jpg" alt="profile pic">
+				</div>
+				<div class="profile-text">
+				    <h5>Full-Stack Engineer & System Architect</h5>
+				    <h1>Ho Weng Hong<br>Cristian</h1>
+				    <p>I specialize in robust architecture, clean code, and seamless functionality. I bridge the gap between complex logic and flawless user experiences.</p>
+				    <a href="Member02-portfolio-site/cisc3003-Member02-home.html" target="_blank" class="portfolio-btn">My Portfolio</a>
+				</div>
+			</div>
+		</section>
+		</div>
+	</div>
+
+
+	<section id="about-us" class="page-section">
+		<br>
+		<h1 class="section-title">About Us</h1>
+		<div class="section-container">
+			<div class="text-container" style="width: 100%;">
+				<p>Founded by two passionate web developers, our studio combines technical excellence with creative design. We specialize in HTML, CSS, and JavaScript, building scalable solutions that help businesses thrive in the digital age.</p>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		CISC3003 Web Programming - 2026: 
+		<br>DC325381 Hoi Kai Cheng
+		<br>DC325107 Ho Weng Hong
+	</footer>
+	
+	<script>
+        const toggleBtn = document.querySelector('.togglebtn');
+        const navLinks = document.querySelector('.navpages');
+
+        toggleBtn.addEventListener('click', () => {
+            toggleBtn.classList.toggle('click');
+            navLinks.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang='zxx'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas & Cristian - Showcase</title>
+    <link rel="stylesheet" href="css/cisc3003-PairAssgn-showcase.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="handsome-header">
+		<div class="wrapper">
+			<header>
+		    <div class="logo-group"> 
+		    	<div class="logo-1">
+		            <i class="fa-solid fa">HTC</i>
+		        </div>
+		        <div class="logo-2">
+		            Web Studio
+		        </div>
+		    </div>
+				<nav>
+					<div class="togglebtn">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+					<ul class="navpages">
+						<li><a href="cisc3003-PairAssgn-home.html">Home</a></li>
+						<li><a href="cisc3003-PairAssgn-profile.html">Profile</a></li>
+						<li><a href="cisc3003-PairAssgn-summary.html">Summary</a></li>
+						<li><a href="cisc3003-PairAssgn-showcase.html">Showcase</a></li>
+						<li><a href="cisc3003-PairAssgn-qualification.html">Qualification</a></li>
+					</ul>
+                </nav>
+            </header>
+            
+			<section id="nav" class="page-section">
+				<ul class="navlinks">
+				    <li><a href="#projects">Portfolio Projects</a></li>
+				    <li><a href="#accomplishments">Accomplishments</a></li>
+				    <li><a href="#log">Business Offers</a></li>
+				</ul>
+			</section>
+			
+          	<div class="container">
+				<div class="handsome-pic">
+					<img src="images/Thomas/photo_2.jpg" alt="profile pic">
+				</div>
+				<br>
+				<div class="handsome-pic">
+					<img src="images/Cristian/face.jpg" alt="profile pic">
+			</div>
+			</div>
+
+
+                    <section id="projects" class="page-section">
+						<p class="section-subtitle">Browse Our Recent</p>
+						<h1 class="section-title">Portfolio Projects</h1>
+						<div class="experience-details-container">
+							
+                            <div class="details-container color-container">
+								<div class="article-container">
+									<img src="images/Thomas/project01.png" alt="Easy Bank Project" class="project-img">
+								</div>
+								<h2 class="experience-sub-title project-title">Project 01</h2>
+								<h3 class="">Easy Bank (Featured Project)</h3>
+                                <p>A modern, responsive landing page and dashboard for a digital banking platform.</p>
+								<div class="btn-group">
+									<button class="btn" onclick="location.href='https://github.com/THoi2514/CISC3003-DC325381-2026GitHub/tree/master'">GitHub</button>
+									<button class="btn active" onclick="location.href='cisc3003-PairAssgn-demo01-home.html'">Live Demo</button>
+								</div>
+							</div>
+							
+							<div class="details-container color-container">
+								<div class="article-container">
+									<img src="images/easybank-landing-page-master/desktop-design.jpg" alt="Lumina Project" class="project-img">
+								</div>
+								<h2 class="experience-sub-title project-title">Project 02</h2>
+								<h3 class="">Lumina E-Commerce</h3>
+                                <p>A sleek, interactive multi-page storefront highlighting responsive product galleries.</p>
+								<div class="btn-group">
+									<button class="btn" onclick="location.href='https://github.com/THoi2514/CISC3003-DC325381-2026GitHub/tree/master'">GitHub</button>
+									<button class="btn active" onclick="location.href='cisc3003-PairAssgn-demo02.html' ">Live Demo</button>
+								</div>
+							</div>
+							
+							<div class="details-container color-container">
+								<div class="article-container">
+									<img src="images/Thomas/project03.png" alt="TechNova Project" class="project-img">
+								</div>
+								<h2 class="experience-sub-title project-title">Project 03</h2>
+								<h3 class="">TechNova Corporate Site</h3>
+                                <p>A professional, multi-page corporate website designed for a tech consultancy firm.</p>
+								<div class="btn-group">
+									<button class="btn" onclick="location.href='https://github.com/THoi2514/CISC3003-DC325381-2026GitHub/tree/master'">GitHub</button>
+									<button class="btn active" onclick="location.href='cisc3003-PairAssgn-demo03-home.html' ">Live Demo</button>
+								</div>
+							</div>
+
+
+
+						</div>
+					</section>
+
+                    <section class="section-block" id="accomplishments">
+                        <h2>Our Accomplishments</h2>
+                        <ul>
+                            <li>Successfully designed and deployed multiple highly responsive business websites.</li>
+                            <li>Achieved perfect scores on Google Lighthouse for Web Performance and Accessibility on our flagship projects.</li>
+                            <li>Developed comprehensive, responsive personal portfolio templates for individual developer showcases.</li>
+                        </ul>
+                    </section>
+
+                    <section class="section-block" id="log">
+                        <h2>Our Business Offers</h2>
+                        <ul>
+                            <li><strong>Custom Web Development:</strong> Multi-page, responsive websites built entirely from scratch.</li>
+                            <li><strong>UI/UX Design:</strong> Wireframing, prototyping, and rigorous user interface optimization.</li>
+                            <li><strong>Website Revamps:</strong> Modernizing legacy sites with updated CSS flexbox/grid and interactive JavaScript.</li>
+                            <li><strong>Personal Portfolios:</strong> Tailored individual portfolio designs for professionals and creatives.</li>
+                        </ul>
+                    </section>
+                
+            
+        </div>
+    </div>
+
+	<footer>
+		CISC3003 Web Programming - 2026: 
+		<br>DC325381 Hoi Kai Cheng
+		<br>DC325107 Ho Weng Hong
+	</footer>
+
+    <script>
+        const toggleBtn = document.querySelector('.togglebtn');
+        const navLinks = document.querySelector('.navpages');
+
+        toggleBtn.addEventListener('click', () => {
+            toggleBtn.classList.toggle('click');
+            navLinks.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

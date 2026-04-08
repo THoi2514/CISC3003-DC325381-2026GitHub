@@ -237,53 +237,113 @@ footer {
     color: #333;
 }
 
-/* Mobile Responsive View */
+/* =========================================
+   Mobile Responsive View (Screens < 768px)
+   ========================================= */
 @media (max-width: 768px) {
+    body {
+        margin: 0;
+        padding: 0;
+        height: auto;
+        min-height: 100vh;
+        display: block; /* Disables flex centering to utilize full screen */
+        background: #fff;
+    }
+
     .container {
         width: 100%;
-        max-width: 100%;
-        min-height: 100vh;
+        height: 100vh;
+        min-height: 650px; /* Prevents layout squishing when mobile keyboard opens */
         border-radius: 0;
-        display: flex;
-        flex-direction: column;
+        box-shadow: none;
     }
 
-    /* Make both forms take full width and flow naturally */
+    /* Assign top 60% of screen to the forms */
     .form-container {
         width: 100%;
-        position: relative;
-        height: auto;
-        min-height: 50vh;
-        transition: none;
+        height: 60%;
+        top: 0;
     }
 
-    .sign-in-container,
-    .sign-up-container {
+    .sign-in-container, .sign-up-container {
         width: 100%;
-        position: relative;
-        opacity: 1;
+        transition: opacity 0.6s ease-in-out;
+    }
+
+    /* Disable horizontal slide for forms; crossfade instead */
+    .container.right-panel-active .sign-in-container {
+        transform: translateX(0);
+        opacity: 0;
         z-index: 1;
-        transform: none;
     }
 
-    /* Hide the sliding overlay on small screens to avoid overflow issues */
-    .overlay-container {
-        display: none;
-    }
-
-    /* Ensure both forms are visible by default when stacked */
-    .container.right-panel-active .sign-in-container,
     .container.right-panel-active .sign-up-container {
-        transform: none;
+        transform: translateX(0);
+        opacity: 1;
+        z-index: 5;
+        animation: none; /* Disables the desktop keyframe animation */
     }
 
+    /* Assign bottom 40% of screen to the overlay */
+    .overlay-container {
+        width: 100%;
+        height: 40%;
+        top: 60%;
+        left: 0;
+    }
+
+    .container.right-panel-active .overlay-container {
+        transform: translateX(0); /* Disable container horizontal slide */
+    }
+
+    .overlay {
+        width: 200%;
+        left: -100%;
+    }
+
+    .container.right-panel-active .overlay {
+        transform: translateX(50%); /* Slide inner overlay */
+    }
+
+    .overlay-panel {
+        width: 50%;
+        padding: 0 20px;
+    }
+
+    /* Reset desktop transform shifts for mobile */
+    .overlay-left, .overlay-right, 
+    .container.right-panel-active .overlay-left, 
+    .container.right-panel-active .overlay-right {
+        transform: translateX(0);
+    }
+
+    /* Responsive text and spacing adjustments */
     form {
-        padding: 30px 20px;
-        height: 100%;
-        justify-content: center;
+        padding: 0 20px;
     }
 
     h1 {
-        font-size: 1.5rem;
+        font-size: 24px;
+    }
+
+    .vector-image {
+        width: 100px;
+        margin: 10px 0;
+    }
+
+    p {
+        margin: 10px 0 15px;
+        font-size: 13px;
+    }
+    
+    button {
+        padding: 10px 35px;
+    }
+
+    /* Un-fix the footer so it doesn't overlap the mobile layout */
+    footer {
+        position: relative;
+        background-color: #f6f5f7;
+        padding: 15px 0;
     }
 }

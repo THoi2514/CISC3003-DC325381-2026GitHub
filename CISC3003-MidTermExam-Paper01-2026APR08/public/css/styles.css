@@ -236,3 +236,54 @@ footer {
     font-weight: bold;
     color: #333;
 }
+
+/* Mobile Responsive View */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        max-width: 100%;
+        min-height: 100vh;
+        border-radius: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Make both forms take full width and flow naturally */
+    .form-container {
+        width: 100%;
+        position: relative;
+        height: auto;
+        min-height: 50vh;
+        transition: none;
+    }
+
+    .sign-in-container,
+    .sign-up-container {
+        width: 100%;
+        position: relative;
+        opacity: 1;
+        z-index: 1;
+        transform: none;
+    }
+
+    /* Hide the sliding overlay on small screens to avoid overflow issues */
+    .overlay-container {
+        display: none;
+    }
+
+    /* Ensure both forms are visible by default when stacked */
+    .container.right-panel-active .sign-in-container,
+    .container.right-panel-active .sign-up-container {
+        transform: none;
+    }
+
+    form {
+        padding: 30px 20px;
+        height: 100%;
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+}

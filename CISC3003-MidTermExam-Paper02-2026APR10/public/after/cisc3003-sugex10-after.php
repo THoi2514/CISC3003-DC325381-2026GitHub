@@ -24,7 +24,7 @@ if ($selectedCustomerID) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>CISC3003 Mid-Term Exam - Paper 02</title>
+    <title>dc325381 HOI KAI CHENG</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>

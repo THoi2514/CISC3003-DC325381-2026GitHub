@@ -1,0 +1,185 @@
+:root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #1f2937;
+    --subtext: #6b7280;
+    --primary: #2f80ed;
+    --primary-dark: #1c64c7;
+    --border: #dbe3ee;
+    --ok: #15803d;
+    --warn: #b45309;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+}
+
+.topbar {
+    background: linear-gradient(120deg, #1f4b99, #2f80ed);
+    color: #fff;
+    padding: 20px 0;
+}
+
+.topbar h1 {
+    margin: 0 0 8px;
+    font-size: 1.6rem;
+}
+
+.topbar p {
+    margin: 0;
+    opacity: 0.92;
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 18px 0 24px;
+}
+
+.panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.panel h2 {
+    margin-top: 0;
+}
+
+.filter-form {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.filter-form label {
+    display: grid;
+    gap: 6px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.filter-form input,
+.filter-form select,
+.filter-form button {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--primary-dark);
+}
+
+button.secondary {
+    background: #64748b;
+}
+
+.status-message {
+    margin: 10px 0;
+    color: var(--subtext);
+    font-size: 0.92rem;
+}
+
+.station-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+    max-height: 420px;
+    overflow: auto;
+}
+
+.station-item {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.station-item h3 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+}
+
+.station-meta {
+    margin: 3px 0;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+.tag-ok {
+    color: var(--ok);
+    font-weight: 700;
+}
+
+.tag-warn {
+    color: var(--warn);
+    font-weight: 700;
+}
+
+.map-view {
+    min-height: 420px;
+    border: 1px dashed #9bb2d3;
+    border-radius: 12px;
+    background: #eef5ff;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 16px;
+}
+
+.map-placeholder {
+    color: #334155;
+    line-height: 1.7;
+}
+
+.hint {
+    color: var(--subtext);
+    font-size: 0.88rem;
+}
+
+.footer {
+    border-top: 1px solid var(--border);
+    padding: 14px 0;
+    color: var(--subtext);
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .map-view {
+        min-height: 300px;
+    }
+}

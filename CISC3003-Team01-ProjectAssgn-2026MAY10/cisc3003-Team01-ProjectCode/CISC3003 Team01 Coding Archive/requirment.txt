@@ -1,0 +1,81 @@
+UM Rental Website - Runtime Requirement Checklist
+
+1) System
+- Windows 10/11
+- XAMPP installed (any drive/path is supported)
+- Project path under your XAMPP web root (example: ...\xampp\htdocs\project)
+
+2) Backend Runtime
+- Apache 2.4+ (via XAMPP)
+- mod_rewrite enabled (required for root URLs like /home.php, /rental_action.php mapped by .htaccess; or call scripts under php/home/, php/app/, php/auth/ directly)
+- AllowOverride enabled for the project folder so .htaccess rules apply
+- PHP 8.1+ with common extensions enabled:
+  - mysqli
+  - pdo_mysql
+  - mbstring
+  - json
+  - openssl
+  - fileinfo (forum image uploads use mime detection)
+
+3) Database
+- MySQL 8.0+ (or compatible MariaDB)
+- Default DB port in PHP defaults is 3307; many XAMPP installs use 3306. Set DB_PORT (env or config/db_connect.local.php) to match your MySQL listener.
+- Create/import database using one of these commands:
+  - setup_database.bat full root
+  - setup_database.bat minimal root
+  - setup_database.bat prod um_app
+  - setup_database_um_app.bat full
+
+3.1) Database setup scripts
+- setup_database.bat
+  - Main script; supports modes: full / minimal / prod
+  - Supports profiles: root / um_app
+- setup_database_um_app.bat
+  - Compatibility wrapper to run setup_database.bat with um_app profile
+  - Supports: full / minimal / prod
+
+3.2) mysql.exe auto-detection (portable, no fixed C:/D:)
+- setup_database.bat checks in this order:
+  1. System PATH
+  2. Relative project path: ..\..\mysql\bin\mysql.exe
+  3. %XAMPP_HOME%\mysql\bin\mysql.exe (if XAMPP_HOME is set)
+
+4) Minimal Required Files
+- database/schema.sql
+- database/seed_demo_data.sql (or basic_schema.sql + basic_seed.sql for lightweight demo)
+- config.php
+- .htaccess (if using friendly URLs from project root)
+- php/app/rental_action.php (API surface; exposed as /rental_action.php when rewrite is on)
+- includes/* shared by pages (db.php, auth, etc.)
+- Optional clients: frontend_flutter/ (mobile), admin_dashboard/ (React admin SPA), api/ (JSON endpoints used by Flutter/admin)
+
+5) Entry URLs
+- http://localhost/project/home.php
+- http://localhost/project/login.php
+- http://localhost/project/dashboard.php
+- https://cisc3003team01.is-great.net/ (online version)
+
+6) Demo Accounts (seeded)
+- admin: dc325107
+- staff: t2000001
+- student: s1000001
+- password (all demo accounts): Password123
+
+7) Permissions
+- Apache/PHP process must be able to read project files.
+- Writable directory for forum uploads: uploads/forum/ (created at runtime when needed).
+- Runtime diagnostics go to PHP error_log with prefix [UM_Rental] (see includes/app_log.php); on XAMPP check apache/logs/error.log.
+
+8) Optional configuration
+- Google OAuth (optional): GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI or entries in project root .env (see includes/oauth_config.php).
+- Session cookies require browser support; CSRF tokens are required for mutating POST/PUT/PATCH/DELETE to APIs when session auth is used.
+
+9) Security Warning Quick Note
+- If browser shows a red "dangerous site" page, it is usually domain reputation/Safe Browsing blocking, not necessarily PHP runtime failure.
+- Quick re-check items:
+  - `.env` uses HTTPS production URI values.
+  - no suspicious PHP functions in active project code.
+  - upload directories do not contain executable `.php` files.
+- Current production URI baseline:
+  - APP_URL=https://cisc3003team01.is-great.net
+  - GOOGLE_REDIRECT_URI=https://cisc3003team01.is-great.net/api/google_login_callback.php

@@ -1,0 +1,296 @@
+/* Shared multi-column footer (public + app shells) */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+footer.site-footer {
+    text-align: left;
+}
+
+.site-footer {
+    --footer-fg: #1a1a1a;
+    --footer-muted: #6b6b6b;
+    --footer-border: #e8e8e8;
+    --footer-bg: #ffffff;
+    background: var(--footer-bg);
+    color: var(--footer-fg);
+    border-top: 1px solid var(--footer-border);
+    padding: 48px 16px 28px;
+    margin-top: auto;
+    overflow-x: hidden;
+}
+
+.site-footer-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+/* Brand / trademark — preserve PNG aspect ratio (no flat box / no wrong width×height hints) */
+.site-footer-brand {
+    margin: 0 0 20px;
+    padding: 0 0 18px;
+    border-bottom: 1px solid var(--footer-border);
+}
+
+.brand-footer-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--footer-fg);
+    max-width: 100%;
+}
+
+/* Footer logo: same idea as header — height cap only, width follows intrinsic ratio (no square squeeze). */
+.brand-footer-logo-box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+footer.site-footer .brand-footer-logo {
+    display: block;
+    height: 44px;
+    width: auto;
+    max-height: 56px;
+    object-fit: contain;
+    object-position: left center;
+}
+
+/* Footer wordmark: gradient type + gold accent rule */
+.brand-footer-text.brand-wordmark {
+    font-size: clamp(0.95rem, 1.5vw, 1.12rem);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1.25;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 4px;
+    background: linear-gradient(95deg, #1c0a38 0%, #5b2a86 38%, #7040c4 68%, #8a6a18 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.brand-footer-text.brand-wordmark::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #4a258f, #d4a017);
+    opacity: 0.88;
+}
+
+@supports not (background-clip: text) {
+    .brand-footer-text.brand-wordmark {
+        color: #2f155f;
+        background: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .brand-footer-lockup {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    footer.site-footer .brand-footer-logo {
+        height: 36px;
+        max-height: 40px;
+    }
+}
+
+.site-footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px 24px;
+    align-items: start;
+}
+
+@media (max-width: 960px) {
+    .site-footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 520px) {
+    .site-footer {
+        padding: 32px 12px 22px;
+    }
+
+    .site-footer-grid {
+        grid-template-columns: 1fr;
+        gap: 20px 12px;
+    }
+
+    .pay-badge-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 220px;
+    }
+}
+
+.site-footer-heading {
+    margin: 0 0 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--footer-fg);
+}
+
+.site-footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.site-footer-links li {
+    margin: 0 0 10px;
+}
+
+.site-footer-links a {
+    color: var(--footer-fg);
+    text-decoration: none;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    opacity: 0.92;
+}
+
+.site-footer-links a:hover {
+    text-decoration: underline;
+    opacity: 1;
+}
+
+.site-footer-col-pay .site-footer-pay-hint {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    color: var(--footer-muted);
+}
+
+.pay-badge-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    max-width: 260px;
+}
+
+.pay-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    padding: 3px 5px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border: 1px solid var(--footer-border);
+    border-radius: 6px;
+    background: #fafafa;
+    color: #333;
+}
+
+.pay-visa { color: #1a1f71; }
+.pay-mc { color: #eb001b; }
+.pay-amex { color: #006fcf; }
+.pay-jcb { color: #0b4ea2; }
+.pay-line { color: #06c755; }
+.pay-apple { color: #000; }
+.pay-jko { color: #ff6600; }
+.pay-aftee { color: #7c3aed; }
+.pay-google { color: #4285f4; }
+
+.site-footer-divider {
+    height: 1px;
+    background: var(--footer-border);
+    margin: 36px 0 24px;
+}
+
+.site-footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.site-footer-legal {
+    margin: 0;
+    flex: 1 1 280px;
+    max-width: 720px;
+    font-size: 0.72rem;
+    line-height: 1.65;
+    color: var(--footer-muted);
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.site-footer-social {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+@media (max-width: 520px) {
+    .site-footer-bottom {
+        gap: 12px;
+    }
+
+    .site-footer-social {
+        width: 100%;
+    }
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--footer-border);
+    color: #444;
+    background: #fff;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.social-icon:hover {
+    background: #f4f4f4;
+    color: #111;
+}
+
+.social-icon svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+
+/* Sticky layout: footer at bottom when content is short */
+body:has(> .site-footer) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body:has(> .site-footer) > main,
+body:has(> .site-footer) > main.main-layout,
+body:has(> .site-footer) > main.hero,
+body:has(> .site-footer) > .wrap,
+body:has(> .site-footer) > .layout,
+body:has(> .site-footer) > .layout.single-column,
+body:has(> .site-footer) > .auth-page-fill {
+    flex: 1 1 auto;
+}

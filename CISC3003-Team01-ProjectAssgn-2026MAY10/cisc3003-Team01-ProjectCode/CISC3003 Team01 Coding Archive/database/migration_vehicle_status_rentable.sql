@@ -1,0 +1,10 @@
+-- =========================================================
+-- 車輛「可租借」狀態與應用程式約定
+-- schema：vehicles.status ENUM('available','rented','maintenance','retired')
+-- 使用者可租清單與管理後台「可租借」= status = 'available' 單一來源
+-- =========================================================
+--
+-- 若舊資料庫曾用 VARCHAR 並存了 'active' 當可租，可手動執行（執行前請備份）：
+-- UPDATE vehicles SET status = 'available' WHERE status = 'active';
+--
+-- 官方建議直接以 database/schema.sql 建庫，無需執行任何 UPDATE。

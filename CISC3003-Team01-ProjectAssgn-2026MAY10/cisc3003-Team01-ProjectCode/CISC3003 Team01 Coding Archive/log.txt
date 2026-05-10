@@ -1,0 +1,634 @@
+Estimated Previous History (Before This Chat)
+Date: 2026-04-30
+Scope: Reconstructed from current repository state (not exact execution logs)
+Confidence: Medium (inferred)
+
+- Project already existed as a UM rental platform with:
+  - PHP backend pages/APIs
+  - MySQL schema + seed files
+  - role-based flows (student/staff/admin)
+  - i18n support across multiple pages
+- Frontend had initial styling and dashboard features before redesign.
+- Existing SQL and API structure suggest iterative coursework development:
+  - rental lifecycle (start/end/dashboard)
+  - account/wallet operations
+  - staff/admin management actions
+- Some files indicate earlier multi-track work:
+  - `admin_dashboard/` React frontend
+  - `frontend_flutter/` mobile prototype
+  - `docs/project/`, `docs/development/` project and setup documents (formerly `document/`)
+- Prior to this chat, deployment was likely local-first (XAMPP), not fully public-cloud ready.
+
+----------------------------------------------------------------
+Verified Session Log (This Chat)
+----------------------------------------------------------------
+Project Work Log (AI Assistant)
+Date: 2026-04-30
+Workspace: d:\Tools\xampp\htdocs\project
+
+================================================================
+1) UI / i18n / layout fixes
+================================================================
+- Fixed zhtw/zhcn layout issue in staff top bar.
+  - File: style.css
+  - Changed:
+    - .top-actions supports align-items + flex-wrap
+    - Scoped form select width rule from global "select" to ".auth-box select"
+  - File: staff/home.php
+    - Added class="language-select" on language dropdown
+
+- Fixed dashboard map marker popup text not using current language.
+  - File: dashboard.php
+  - Added i18n keys:
+    - stationCapacity, stationBikes, stationScooters
+  - Updated Leaflet popup labels to use t(...)
+
+- Fixed wrong marker positions on map due to possible lat/lng swap.
+  - File: dashboard.php
+  - Added coordinate normalization:
+    - Use original lat/lng if in UM bounds
+    - If out of bounds, try swapped lng/lat
+    - Skip only if both invalid
+
+================================================================
+2) Staff features and data seeding
+================================================================
+- Added students Excel export feature, then removed it per request.
+  - Added and later removed:
+    - staff/staff_dashboard.php
+      - Export Students Excel button, i18n text, click handler
+    - rental_action.php
+      - action=staff_export_students_excel (.xls export)
+
+- Expanded demo data (students/vehicles).
+  - File: database/seed_demo_data.sql
+  - Added:
+    - Students expanded to 10 unique students
+    - Bicycles expanded to BK-0001..BK-0010
+    - Scooters expanded to SC-1001..SC-1010
+
+- Added "one-click seed demo data" feature, then removed it per request.
+  - Added and later removed:
+    - staff/staff_dashboard.php
+      - One-click seed button, i18n text, click handler
+    - rental_action.php
+      - action=staff_seed_demo_data (idempotent insert logic + audit)
+
+================================================================
+3) Database structure consolidation and scripts
+================================================================
+- Created basic schema and seed for lightweight setup.
+  - Added files:
+    - database/basic_schema.sql
+    - database/basic_seed.sql
+
+- Consolidated database setup documentation.
+  - File: database/core_schema.sql
+    - Replaced with "deprecated" notice (no longer for new setup)
+  - Added file:
+    - database/README.md (official vs minimal setup flow)
+
+- Added setup scripts for Windows/XAMPP.
+  - Added:
+    - setup_database.bat
+    - setup_database_um_app.bat
+  - Updated README with usage
+  - Later improved:
+    - setup_database.bat now supports profile selection (root / um_app)
+    - setup_database_um_app.bat changed to compatibility wrapper
+
+- SQL completeness improvements (schema/migration gaps).
+  - File: database/schema.sql
+    - Added missing DROP for wallet_transactions, rate_limits
+    - Added wallet_transactions table + constraints + indexes
+    - Added rate_limits table + index
+    - Added idx_orders_status_time + idx_vehicle_status_type
+  - File: database/basic_schema.sql
+    - Added rate_limits table
+    - Added missing wallet constraint + extra indexes
+  - File: database/migration_mvp_phase1.sql
+    - Marked as backward-compat migration
+    - Removed duplicate index creation for new installs
+
+================================================================
+4) Dashboard notification behavior
+================================================================
+- Changed "User already has active order" to mini popup.
+  - Files:
+    - dashboard.php
+    - assets/dashboard.css
+
+- Updated all dashboard reminders to unified popup (not top area).
+  - Removed top toast usage.
+  - Replaced alert/toast with showMiniPopup for:
+    - invalid vehicle id
+    - choose return station
+    - user already has active order
+    - no active order found
+    - generic API errors and success messages
+  - Moved popup position to bottom-right and added error variant.
+
+================================================================
+5) Public website redesign
+================================================================
+- Backup created before redesign.
+  - File generated:
+    - d:\Tools\xampp\htdocs\project_backup.zip
+
+- Refreshed visual style for main app pages.
+  - Updated:
+    - assets/dashboard.css
+    - style.css
+    - assets/login.css
+
+- Landing/Home redesign and navigation updates.
+  - File: index.php
+    - Hero content changed to left-aligned
+    - Top-right button text changed from "Login / Portal" to "Login"
+    - Added hero action buttons
+
+- Added public pages with fuller content:
+  - about.php
+  - services.php
+  - contact.php
+
+- Created shared public layout includes:
+  - includes/public_header.php
+  - includes/public_footer.php
+  - Refactored:
+    - index.php
+    - about.php
+    - services.php
+    - contact.php
+
+================================================================
+6) Deployment preparation (GitHub + GCP)
+================================================================
+- Added cloud deployment artifacts:
+  - Dockerfile
+  - .dockerignore
+  - DEPLOY_GCP.md
+
+- Updated DB connection files to support environment variables and Cloud SQL socket.
+  - includes/db.php
+  - config.php
+  - config/db_connect.php
+  - Added env support:
+    - DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS, DB_SOCKET
+
+- Local DB import executed successfully via mysql CLI:
+  - schema.sql
+  - migration_mvp_phase1.sql
+  - seed_demo_data.sql
+
+- Initialized local git repo and committed project.
+  - Commit:
+    - "Initial deploy-ready setup"
+
+- Security cleanup before pushing:
+  - Added .gitignore
+  - Removed .env from tracking
+  - Sanitized .env.example placeholders
+  - Commit:
+    - "Remove secrets from git tracking"
+
+- Created and pushed GitHub repository:
+  - https://github.com/HOWENGHONG/um-rental-system
+
+- Installed CLI tooling on machine:
+  - GitHub CLI installed
+  - Google Cloud SDK installed
+
+- GCP deployment attempt blocked by project prerequisites:
+  - Billing not enabled for required services
+  - APIs disabled (run/cloudbuild/artifactregistry/sqladmin)
+  - Deployment paused awaiting user-side console enablement
+
+================================================================
+7) Data correction for mixed bicycle brands
+================================================================
+- Updated seed files to include mixed bicycle brands (not all Giant).
+  - database/seed_demo_data.sql
+  - database/basic_seed.sql
+
+- Added follow-up UPDATE statements to refresh brand_id for existing seeded rows
+  (so re-seeding updates old records rather than keeping previous brand values).
+
+================================================================
+8) Follow-up hardening, permission split, and UI consistency
+================================================================
+- Implemented demo/prod seed separation and reset workflow:
+  - Added:
+    - database/seed_production_baseline.sql
+    - database/reset_demo_state.sql
+  - Updated:
+    - setup_database.bat (added `prod` mode)
+    - database/README.md (mode-based setup docs)
+
+- Added backend/frontend message normalization for dashboard errors:
+  - Added backend `message_key` for key rental/return failures.
+  - Updated dashboard popup logic to prioritize `message_key` and fallback mapping.
+  - Files:
+    - rental_action.php
+    - dashboard.php
+
+- Added sensitive file direct-access protection:
+  - Added root `.htaccess` deny rules for:
+    - `.env*`
+    - `log.txt`
+    - `*.sql`
+    - `*.md`
+
+- Added/expanded delivery documents:
+  - Added:
+    - TEST_CHECKLIST.md
+    - API_OVERVIEW.md
+    - SECURITY_POLICY.md
+    - DOCUMENTATION.md
+  - Updated:
+    - README.md
+
+- Public i18n and layout deduplication:
+  - Added shared script:
+    - assets/public_i18n.js
+  - Refactored:
+    - index.php
+    - about.php
+    - services.php
+    - contact.php
+
+- Registration policy tightened:
+  - Public register now supports student-only.
+  - Removed role picker from register page.
+  - Backend rejects non-student public registration.
+  - Files:
+    - register.php
+    - api/register.php
+
+- Admin staff-account management added:
+  - Added admin actions:
+    - admin_staff_accounts
+    - admin_add_staff
+    - admin_update_staff_status
+    - admin_remove_staff
+  - Added Admin UI section to manage staff accounts.
+  - Files:
+    - rental_action.php
+    - admin/admin_dashboard.php
+
+- Enforced single admin account policy:
+  - Set `dc325107` as sole valid admin account.
+  - Updated seed/reset logic to keep only this admin.
+  - Added strict check in `requireAdmin`.
+  - Files:
+    - config.php
+    - database/seed_demo_data.sql
+    - database/basic_seed.sql
+    - database/reset_demo_state.sql
+
+- Permission split refined:
+  - `requireStaff` changed to staff-only.
+  - Added `requireStaffOrAdmin` for shared read endpoint(s), e.g. KPI report.
+  - Updated staff audit actor roles from mistaken `'admin'` to `'staff'`.
+  - Files:
+    - config.php
+    - rental_action.php
+
+- Rentable bicycle status compatibility fix:
+  - Requirement: if staff/admin sets bicycle to `active`, it must appear in user rentable list.
+  - Implemented compatibility:
+    - Admin update accepts `active` and maps to `available` on save.
+    - Dashboard/API queries treat `active` as rentable for compatibility.
+  - Files:
+    - rental_action.php
+    - api/dashboard_api.php
+    - admin/admin_dashboard.php
+
+- UI consistency pass across PHP pages:
+  - Unified topbar action styling/buttons.
+  - Reduced inline styles; moved to shared classes.
+  - Added logout button where missing (admin/staff/account contexts).
+  - Files:
+    - dashboard.php
+    - admin/admin_dashboard.php
+    - staff/home.php
+    - staff/staff_dashboard.php
+    - account.php
+    - login.php
+    - register.php
+    - style.css
+    - assets/dashboard.css
+    - assets/login.css
+
+- Wording alignment:
+  - Replaced `Portal` wording with `Login` where requested.
+  - Files:
+    - login.php
+    - register.php
+
+- Git push status:
+  - Committed and pushed latest integrated changes to:
+    - origin/master
+  - Commit:
+    - 72df9c7
+    - "Unify role permissions, rentable bike status handling, and UI consistency across dashboard and admin/staff pages."
+
+================================================================
+9) Documentation classification cleanup
+================================================================
+- Reorganized top-level documentation into categorized `docs/` structure.
+  - Added:
+    - docs/README.md
+    - docs/deployment/DEPLOY_GCP.md
+    - docs/specs/API_OVERVIEW.md
+    - docs/security/SECURITY_POLICY.md
+    - docs/testing/TEST_CHECKLIST.md
+  - Updated:
+    - README.md (all documentation links now point to `docs/` categories)
+  - Removed old root duplicates:
+    - DOCUMENTATION.md
+    - DEPLOY_GCP.md
+    - API_OVERVIEW.md
+    - SECURITY_POLICY.md
+    - TEST_CHECKLIST.md
+
+================================================================
+10) Public shell / brand / header i18n (2026-05-04)
+================================================================
+- Dashboard student-facing copy and layout
+  - Goal: dashboard.php reads as an end-user product, not internal spec text.
+  - File: dashboard.php
+    - body class `user-dashboard`, main `dashboard-main`, welcome block
+      (dashboardKicker, dashboardWelcome + session name, dashboardSub).
+    - Section titles and hints updated (e.g. search/results/station map/order history).
+    - Removed requirement-style label "Station Explorer (FR-U4)"; table <th> use
+      data-i18n keys (thStation, thCapacity, thBicycles, thScooters, thMapRef,
+      thTripNo, thVehicle, thBrand, thStartTime, thEndTime, thDuration, thFee, thStatus).
+    - i18n (en / zh-CN / zh-TW): pageTitle, dashboard*, search/results/station
+      strings, friendlier API error messages, navUserDashboard as "Rental home" /
+      "租借首页" (staff/admin link to same page).
+  - File: assets/dashboard.css
+    - Styles for .dashboard-welcome, .dashboard-kicker, .dashboard-h1, .dashboard-sub,
+      .dashboard-hint.
+
+- Brand wordmark: "Team 01 | …" → "UM Rental" (plus zh equivalents)
+  - Files:
+    - includes/public_header.php — default span text; class brand-wordmark on brand text.
+    - includes/public_footer.php — same for footer lockup.
+    - assets/footer_i18n.js — navBrand en/zh-CN/zh-TW.
+    - Mirrored navBrand in PHP page i18n blocks:
+      home.php, login.php, register.php, about.php, contact.php, services.php,
+      account.php, dashboard.php, admin/admin_dashboard.php, staff/home.php,
+      staff/staff_dashboard.php.
+    - home.php title / hlKicker aligned; home.html title adjusted.
+
+- Designed typography for brand text (gradient wordmark)
+  - File: assets/home-landing.css — .brand-lockup .brand-text.brand-wordmark (gradient).
+  - File: assets/site-footer.css — .brand-footer-text.brand-wordmark (gradient + underline bar).
+
+- Header language dropdown localization (Chinese UI: avoid extra English "English")
+  - File: assets/footer_i18n.js
+    - Keys: langSelectAria, langOptEn, langOptZhCN, langOptZhTW.
+    - Function applyHeaderLanguageSelect(t) updates <select id="languageSelect">
+      aria-label and option labels.
+  - Wired from applyLanguage on:
+    assets/public_i18n.js; dashboard.php; home.php; account.php; login.php;
+    register.php; staff/home.php; staff/staff_dashboard.php; admin/admin_dashboard.php.
+
+- Header nav: prevent wrapped labels (later reverted per user request)
+  - Initially added in assets/um_landing.css and assets/home-landing.css:
+    flex-wrap nowrap, white-space nowrap on links/cta/brand, menu overflow-x auto.
+  - User requested撤回 (undo): reverted those nav/layout constraints in um_landing.css
+    and removed nowrap on brand + duplicate broken `.menu a { font-size: 0.7srem; }`
+    block from home-landing.css.
+  - Retained in um_landing.css: footer:not(.site-footer) scoping so shared site footer
+    is not forced to centered muted footer styles.
+
+- Misc
+  - User asked how favicon/bookmark icon sizing works: documented that display size is
+    browser-controlled; use square PNG assets and optional sizes / apple-touch-icon links
+    (no repo change required for that explanation).
+
+================================================================
+11) Default homepage and static entry filenames (2026-05-04)
+================================================================
+- Use `home.php` as the site directory index (not `index.php`).
+  - File: `.htaccess`
+    - `DirectoryIndex` set from `index.php` to `home.php`.
+  - Rationale: Apache serves the landing page when requesting the project folder URL;
+    aligns public URL with the main marketing/landing implementation.
+
+- Retired `index.php` as a duplicate landing implementation.
+  - Previously replaced full landing HTML with a 301 redirect to `home.php`, then removed
+    the file entirely per user request.
+  - Bookmarks to `/index.php` will 404 unless a rewrite is added later.
+
+- Internal links now point at `home.php` for “home” / “back to home”.
+  - Files: `includes/public_header.php`, `includes/public_footer.php`, `login.php`,
+    `register.php`.
+
+- Comment maintenance
+  - File: `assets/home-landing.css` — comment references `home.php` instead of `index.php`.
+
+- Static HTML prototype rename
+  - Renamed root `index.html` → `home.html` (station filter + map placeholder demo).
+  - No codebase references to `index.html` were found at rename time.
+  - Note: directory default remains `home.php` via `.htaccess`; `home.html` is opened by
+    explicit URL only.
+
+================================================================
+12) Documentation index, site footer, auth UI, and home how-to (2026-05-03)
+================================================================
+- Documentation layout (SDM-style taxonomy)
+  - Consolidated former `document/` into `docs/project/` (PRM, CISC3026 report) and
+    `docs/development/` (A/B Flutter + React setup); removed empty `document/`.
+  - Rewrote `docs/README.md` with category table and repository layout map; updated root
+    `README.md` documentation map; adjusted `log.txt` stale reference and `.dockerignore`
+    (dropped obsolete `document/` path).
+
+- Shared multi-column footer (Klook-like pattern, UM-branded copy)
+  - New / updated: `includes/public_footer.php` (four columns, payment badges, legal line,
+    social icons); `assets/site-footer.css`; `assets/footer_i18n.js` + `mergeFooterI18n`;
+    `public_i18n.js` merges footer strings when `footer_i18n.js` is loaded first.
+  - Wired footer + assets across public pages, `dashboard.php`, `account.php`,
+    `login.php`, `register.php`, `staff/home.php`, `staff/staff_dashboard.php`,
+    `admin/admin_dashboard.php`, `home.php`; `$footerBase = '../'` under `staff/` and
+    `admin/`.
+  - `index.html` static prototype updated with matching footer block (fixed copy).
+  - Landing CSS: `footer:not(.site-footer)` scoping in `assets/landing.css` and
+    `assets/um_landing.css` so shared footer styles are not overridden.
+
+- QA pass (footer rollout)
+  - PHP lint on touched entry pages; `node --check` on `footer_i18n.js` / `public_i18n.js`.
+  - `dashboard.php`: Leaflet CSS moved to `<head>`; Leaflet JS remains before inline script.
+  - `staff/home.php`: minor zh-TW formatting fix.
+
+- Backup artifact
+  - Created timestamped zip under `project-backups/` (e.g. `project_YYYY-MM-DD_HHMMSS.zip`).
+
+- `home.php` landing (reference: external Team05-style marketing patterns)
+  - Added hero with background image, three image feature cards, localized strings.
+  - Assets: downloaded stock images into `assets/images/home/` (hero + three features).
+  - New `assets/home-landing.css` for hero/cards; integrated `site-footer.css`.
+  - User follow-up: removed “service windows” three-card section (fig2-style); replaced with
+    **How to Use Public Bikes** four-step row with SVG icons and arrows (fig1-style),
+    aligned with former `index.php` flow; nav link “Hours” → “How to use” (`#howto`);
+    dropped `.hl-hours` CSS and related i18n keys.
+
+- Login / register (reference: Team05 login/register structure)
+  - New `includes/auth_header.php`: brand to `home.php`, top links Home | Login | Register,
+    active state via `$authActive`, language `<select id="languageSelect">`.
+  - `login.php` / `register.php`: split layout (aside image + form column), `auth-body`;
+    register uses wider card class; primary/secondary link rows (“Create an account” /
+    “Login here” pattern).
+  - Extended `assets/login.css` (`.auth-topbar`, `.auth-split`, `.auth-aside`, etc.).
+
+================================================================
+13) Dashboard: Klook-like layout, UM colors, modal rent, success state, init bugs (2026-05-04)
+================================================================
+- Rental flow (no manual vehicle ID on the main form)
+  - `dashboard.php`: Replaced “Vehicle ID + Rent” with click-to-rent from bike cards; added
+    full-screen dimmed modal (`.modal-backdrop` / `.modal-panel`) to confirm vehicle details
+    and call `rent` API.
+  - i18n: keys for `openRentModalBtn`, `rentModalTitle`, `closeBtn`, modal field labels,
+    `confirmRentBtn`, `modalNoBike`.
+  - `assets/dashboard.css`: Modal overlay and selected bike card styles (`.bike-card.selected`).
+
+- Klook results + UM brand palette
+  - `assets/dashboard.css`: Reworked tokens and layout — search “banner” row, single-column
+    result cards, table/map styling aligned to purple/white UM look; reference patterns
+    similar to Klook car-rental results and [UM](https://www.um.edu.mo/) public site tone.
+
+- “Rental Results” empty on first load (regression 1)
+  - Cause: `renderAvailableBicycles` used `#sortBy` and `#resultsCountText` but those nodes
+    were missing from the HTML after a refactor.
+  - Fix: Restored `results-head` block with `sortBy` and `resultsCountText` in
+    `dashboard.php`; null-safe `sortBy` / count in JS; optional `sortBy` change listener.
+
+- Removed Rent & Return card; success UI with green check
+  - `dashboard.php`: Removed the two-column Rent/Return block (return station + return
+    button). Added `#rentalSuccessCard` with green check (`.success-card`, `.success-icon`)
+    and `rentalSuccessText` + optional timer line.
+  - i18n: `rentalSuccessTitle`, `rentalSuccessHint` (en / zh-CN / zh-TW).
+  - JS: `showRentalSuccessCard` / `hideRentalSuccessCard`; show on successful rent and when
+    `get_dashboard` reports an active order; hide when no active order. Removed
+    `returnBtn` handler and `rentMessage` / `receiptText` updates for that block.
+  - `renderStations`: `returnStationSelect` is optional (null-guard) so map/station table
+    still populate after UI removal.
+
+- Empty dashboard again after removing Rent block (regression 2)
+  - Cause: `openRentModalBtn` and related modal controls were still bound with
+    `getElementById` after the button was removed, throwing and aborting the script before
+    `refreshDashboard()` completed.
+  - Fix: Guarded event binding — only attach listeners if `openRentModalBtn`,
+    `closeRentModalBtn`, `rentModal`, `confirmRentModalBtn` exist.
+  - `bindTimer` / `clearTimer`: null-safe `timerText` element.
+
+- Verification
+  - `php -l dashboard.php` after changes; lints clean on touched files.
+
+================================================================
+14) i18n rollout, UM map bounds, API stability, wallet migration (2026-05-04)
+================================================================
+Workspace: d:\Tools\xampp\htdocs\project
+
+A) Site-wide language switch (English / 简体中文 / 繁體中文)
+- Persistence: `localStorage` key `lang` (`en` | `zh-CN` | `zh-TW`).
+- Pages updated with `<select id="languageSelect">` + inline `i18n` objects and
+  `data-i18n` / `data-i18n-placeholder` where applicable:
+  - index.php — nav, hero, about/services sections, footer; script applies title + text.
+  - login.php — titles, labels, placeholders, Google button, links.
+  - register.php — form labels, role options, validation messages.
+  - dashboard.php — topbar, station section, filters, bike/order pagination, rent flow
+    strings, alerts/toast copy; `t(key, {vars})` for placeholders like `{id}`, `{page}`.
+  - staff/home.php — welcome, cards, buttons.
+  - staff/staff_dashboard.php — navigation, section titles, batch/CSV controls.
+  - account.php — profile/wallet/table headers; balance prefix + empty-state string.
+- admin/admin_dashboard.php already had language UI; remains compatible with same `lang` key.
+
+B) Dashboard map limited to University of Macau campus
+- File: dashboard.php
+- Added `UM_BOUNDS` (south/west/north/east); Leaflet `maxBounds` + `maxBoundsViscosity`
+  so the map cannot be panned outside UM.
+- Markers only rendered when station lat/lng falls inside bounds (out-of-range coords skipped).
+
+C) Rental API returning HTML instead of JSON (“Unexpected token '<'”)
+- Cause: POST actions hit `rateLimit()` which queried `rate_limits`; if the table was
+  missing, PHP emitted warnings/HTML before JSON.
+- Fix: config.php — wrap `rateLimit()` body in try/catch; on DB/table failure, skip
+  rate limiting instead of breaking mutating APIs (dashboard_api, rental_action).
+
+D) Wallet top-up “伺服器錯誤，請稍後再試” / generic 500 on account page
+- Cause: `account_topup` and wallet history insert/select `wallet_transactions`; table
+  absent until migration applied.
+- Fix (environment): Ran `database/migration_mvp_phase1.sql` against local MySQL
+  (127.0.0.1:3307, database `um_rental_system`) via mysql CLI `source`; verified tables
+  `wallet_transactions` and `rate_limits` exist.
+- User action after migration: refresh account.php, top-up again, then dashboard rent.
+
+E) “Insufficient wallet balance” on rent
+- Expected behavior: rent path checks balance >= first 30-minute charge; user must
+  top-up via account page or seed/demo balance.
+
+F) Verification
+- php -l on edited PHP files where applicable (config.php, dashboard.php, etc.) — no syntax errors.
+
+================================================================
+15) Repo housekeeping + run guide refresh (2026-05-07)
+================================================================
+- Updated root `.gitignore` to cover:
+  - Editor/OS artifacts (`.vscode/`, `.idea/`, `.DS_Store`, `Thumbs.db`)
+  - Runtime logs/temp (`*.log`, `tmp/`, `temp/`, `cache/`)
+  - Local dependencies (`vendor/`, `node_modules/`)
+
+- Added `requirment.txt` (requested filename) for quick environment checklist:
+  - OS/runtime prerequisites (Windows + XAMPP, PHP, MySQL)
+  - Required Apache/PHP extensions and writable folders
+  - Database initialization flow and default app URLs
+
+- Rewrote root `README.md` with practical "how to run" steps:
+  - Installation and startup sequence
+  - DB import/setup command guidance
+  - Role account examples for demo login
+  - Verification and troubleshooting checklist
+
+- Account summary added for presentation/demo:
+  - admin: campus_id `dc325107`
+  - staff: campus_id `t2000001`
+  - student: campus_id `s1000001`
+  - demo password for seeded accounts: `Password123`
+
+================================================================
+16) Docs补充 + URI/安全说明同步 (2026-05-09)
+================================================================
+- Updated `.env` production base URL:
+  - `APP_URL` set to `https://cisc3003team01.is-great.net`
+  - `GOOGLE_REDIRECT_URI` confirmed as `https://cisc3003team01.is-great.net/api/google_login_callback.php`
+
+- Updated `README.md`:
+  - supplemented runtime requirement notes (XAMPP/mysql.exe/URI variables).
+  - added security/domain reputation note for browser red warning diagnosis.
+
+- Updated `requirment.txt`:
+  - corrected online URL to `.is-great.net` domain.
+  - added "Security Warning Quick Note" and production URI baseline values.
+
+- Performed quick automated suspicious-code scan in active workspace:
+  - no suspicious PHP function hits (`eval/base64_decode/gzinflate/shell_exec/...`).
+  - no executable `.php` files under `uploads/`.
+  - no obvious dynamic-execution backdoor patterns found.
+
+================================================================
+17) App logging + requirement readme sync (2026-05-10)
+================================================================
+- Added `includes/app_log.php` — structured `error_log` lines with prefix `[UM_Rental][channel][LEVEL]`.
+- Wired logging on DB connection failures: `config.php`, `config/db_connect.php`, `includes/db.php` (incl. root-fallback failure).
+- Wired logging on API failures: `php/app/rental_action.php` (outer Throwable), `api/dashboard_api.php` (`get_dashboard`, `complete_return`).
+- Login lockout: `php/auth/login_verify.php` logs WARNING when an account is locked after failed attempts (user_id only).
+- Fixed defensive rollback in `rental_action.php` outer catch: check `$pdo` instanceof PDO before `inTransaction()`.
+- Updated `README.md`: mod_rewrite / AllowOverride note, DB_PORT default vs XAMPP 3306, extended env vars, application logging section.
+- Updated `requirment.txt`: mod_rewrite, fileinfo, DB port note, minimal file paths (php/app/rental_action.php + .htaccess), uploads + error.log, optional OAuth/CSRF/session.
+
+================================================================
+End of log
+================================================================

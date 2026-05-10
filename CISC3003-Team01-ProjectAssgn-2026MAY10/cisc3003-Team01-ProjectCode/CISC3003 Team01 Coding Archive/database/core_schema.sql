@@ -1,0 +1,11 @@
+-- =========================================================
+-- Deprecated
+-- =========================================================
+-- This file is kept only for backward compatibility.
+-- Do NOT import this file for new setup.
+--
+-- Official full schema:
+--   database/schema.sql
+--
+-- Optional minimal schema (quick local testing):
+--   database/basic_schema.sql

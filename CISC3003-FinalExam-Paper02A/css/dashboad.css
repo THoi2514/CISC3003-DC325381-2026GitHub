@@ -1,0 +1,13 @@
+/* =============================================================================
+   Scenario A — dashboard-specific presentation
+   ============================================================================= */
+.dash-card {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.dash-meta {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
